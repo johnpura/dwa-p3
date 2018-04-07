@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @stack('metadata')
 
     <title>@yield('title', 'Loan Calculator')</title>
 
-    @stack('styles');
+    @stack('styles')
 
   </head>
   <body>
@@ -17,7 +16,9 @@
 
       @yield('loanCalculatorForm')
 
-      @yield('loanSummary')
+      @if (isset($loanAmount))
+        @yield('loanSummary')  
+      @endif
 
       @stack('scripts')
 

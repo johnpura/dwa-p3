@@ -15,6 +15,11 @@ html, body {
     margin: 0 auto;
 }
 
+.invalid {
+    color: red;
+    font-size: .8em;
+}
+
 #loanAmount {
     margin-top: 70px;
 }

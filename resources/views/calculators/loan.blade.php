@@ -1,5 +1,12 @@
 @extends('layouts.master')
 
+@push('metadata')
+    {{-- Required meta tags --}}
+    <meta charset="utf-8">
+    {{-- Responsive viewport meta tag  --}}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@endpush
+
 @section('title')
     {{ $title }}
 @endsection
@@ -15,41 +22,69 @@
 
 @section('masthead')
     <header class="py-5 text-center">
+        @if(count($errors) > 0)
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                    <strong>{{ $error }}</strong> 
+                </div>
+            @endforeach
+        @endif
         <h1 class="title">{{ $title }}</h1>
         <p class="lead">This loan calculator will determine how much you can borrow for different payments, interest rates and terms.</p>
     </header>
 @endsection
 
 @section('loanCalculatorForm')
-    <form class="form-wrapper" id="loanCalculator" method="post" action="">
+    <form class="form-wrapper" id="loanCalculator" method="post" action="/calculateLoan" novalidate>
+        {{ csrf_field() }}
         {{-- Monthly Payments --}}
         <div class="mb-3">
-        <label for="monthlyPayments">Monthly Payments</label>
-        <input type="text" class="form-control" id="monthlyPayments" name="monthlyPayments" required>
+            <label for="monthlyPayments">Monthly Payments</label>
+            <input type="text" class="form-control" id="monthlyPayments" name="monthlyPayments" required>
+            @if($errors->get('monthlyPayments'))
+                <ul class="list-unstyled">
+                    @foreach($errors->get('monthlyPayments') as $error)
+                        <li class="invalid">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+            
         </div>
         {{-- Interest Rate --}}
         <div class="mb-3">
-        <label for="lastName">Interest Rate</label>
-        <input type="text" class="form-control" id="interestRate" name="interestRate" required>
+            <label for="interestRate">Interest Rate</label>
+            <input type="text" class="form-control" id="interestRate" name="interestRate" required>
+            @if($errors->get('interestRate'))
+                <ul class="list-unstyled">
+                    @foreach($errors->get('interestRate') as $error)
+                        <div class="invalid">{{ $error }}</div>
+                    @endforeach
+                </ul>
+            @endif
         </div>
         {{-- Loan Period --}}
         <div class="mb-3">
-        <label for="loanTerm">Number of Payments (in months)</label>
-        <select class="custom-select d-block w-100" id="loanTerm" name="loanTerm" required>
-            <option value="">Choose...</option>
-            <option value="12">12</option>
-            <option value="24">24</option>
-            <option value="36">36</option>
-            <option value="48">48</option>
-            <option value="60">60</option>
-            <option value="72">72</option>
-            <option value="84">84</option>
-        </select>
+            <label for="loanTerm">Loan Term (in months)</label>
+            <select class="custom-select d-block w-100" id="loanTerm" name="loanTerm" required>
+                <option value="">Choose...</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="36">36</option>
+                <option value="48">48</option>
+                <option value="60">60</option>
+                <option value="72">72</option>
+                <option value="84">84</option>
+            </select>
+            @if($errors->get('loanTerm'))
+                @foreach($errors->get('loanTerm') as $error)
+                    <div class="invalid">{{ $error }}</div>
+                @endforeach
+            @endif
         </div>
-        {{-- Amortization Schedule checkbox --}}
+        {{-- Whole dollar amount checkbox --}}
         <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="wholeDollar">
-        <label class="custom-control-label" for="wholeDollar">Round off to the nearest dollar</label>
+            <input type="checkbox" class="custom-control-input" id="wholeDollar" name="wholeDollar">
+            <label class="custom-control-label" for="wholeDollar">Round off to the nearest dollar</label>
         </div>
         {{-- Calculate button --}}
         <hr class="mb-3">
@@ -60,8 +95,8 @@
 @section('loanSummary')
     <footer id="loanAmount">
         <div class="text-center">
-            <h3 class="display-4"></h3>
-            <h1 class="display-2 text-primary"></h1>
+            <h3 class="display-4">Estimated Loan Amount</h3>
+            <h1 class="display-2 text-primary">${{ $loanAmount }}</h1>
         </div>
     </footer>
 @endsection

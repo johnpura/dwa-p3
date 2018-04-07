@@ -12,3 +12,6 @@
 */
 
 Route::get('/', 'CalculatorController@index');
+
+Route::post('/calculateLoan', 'CalculatorController@calculateLoanAmount');
+
