@@ -11,7 +11,6 @@ class CalculatorController extends Controller
     */
     public function index()
     {
-        $title = 'Loan Calculator';
-        return view('calculators.loan')->with(['title' => $title ]);
+        return view('calculators.loan')->with(['title' => config('app.name')]);
     }
 }

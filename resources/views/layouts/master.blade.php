@@ -13,11 +13,11 @@
   <body>
     <div class="container">
 
-      @yield('header')
+      @yield('masthead')
 
-      @yield('form')
+      @yield('loanCalculatorForm')
 
-      @yield('output')
+      @yield('loanSummary')
 
       @stack('scripts')
 

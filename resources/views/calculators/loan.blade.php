@@ -13,14 +13,14 @@
     <link href="/css/main.css" rel="stylesheet">
 @endpush
 
-@section('header')
+@section('masthead')
     <header class="py-5 text-center">
         <h1 class="title">{{ $title }}</h1>
         <p class="lead">This loan calculator will determine how much you can borrow for different payments, interest rates and terms.</p>
     </header>
 @endsection
 
-@section('form')
+@section('loanCalculatorForm')
     <form class="form-wrapper" id="loanCalculator" method="post" action="">
         {{-- Monthly Payments --}}
         <div class="mb-3">
@@ -48,8 +48,8 @@
         </div>
         {{-- Amortization Schedule checkbox --}}
         <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="amortizationSchedule">
-        <label class="custom-control-label" for="amortizationSchedule">Show Amortization Schedule</label>
+        <input type="checkbox" class="custom-control-input" id="wholeDollar">
+        <label class="custom-control-label" for="wholeDollar">Round off to the nearest dollar</label>
         </div>
         {{-- Calculate button --}}
         <hr class="mb-3">
@@ -57,12 +57,13 @@
     </form>
 @endsection
 
-@section('output')
-    <hr class="mb-3">
-    <div class="text-center">
-        <h3 class="display-4">Estimated Loan Amount</h3>
-        <h1 class="display-2 text-primary">$20,000</h1>
-    </div>
+@section('loanSummary')
+    <footer id="loanAmount">
+        <div class="text-center">
+            <h3 class="display-4"></h3>
+            <h1 class="display-2 text-primary"></h1>
+        </div>
+    </footer>
 @endsection
 
 @push('scripts')
