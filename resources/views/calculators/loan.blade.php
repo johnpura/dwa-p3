@@ -40,7 +40,7 @@
         {{-- Monthly Payments --}}
         <div class="mb-3">
             <label for="monthlyPayments">Monthly Payments</label>
-            <input type="text" class="form-control" id="monthlyPayments" name="monthlyPayments" required>
+            <input type="text" class="form-control" id="monthlyPayments" name="monthlyPayments">
             @if($errors->get('monthlyPayments'))
                 <ul class="list-unstyled">
                     @foreach($errors->get('monthlyPayments') as $error)
@@ -53,7 +53,7 @@
         {{-- Interest Rate --}}
         <div class="mb-3">
             <label for="interestRate">Interest Rate</label>
-            <input type="text" class="form-control" id="interestRate" name="interestRate" required>
+            <input type="text" class="form-control" id="interestRate" name="interestRate">
             @if($errors->get('interestRate'))
                 <ul class="list-unstyled">
                     @foreach($errors->get('interestRate') as $error)
@@ -65,7 +65,7 @@
         {{-- Loan Period --}}
         <div class="mb-3">
             <label for="loanTerm">Loan Term (in months)</label>
-            <select class="custom-select d-block w-100" id="loanTerm" name="loanTerm" required>
+            <select class="custom-select d-block w-100" id="loanTerm" name="loanTerm">
                 <option value="">Choose...</option>
                 <option value="12">12</option>
                 <option value="24">24</option>
@@ -87,8 +87,16 @@
             <label class="custom-control-label" for="wholeDollar">Round off to the nearest dollar</label>
         </div>
         {{-- Calculate button --}}
-        <hr class="mb-3">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Calculate Loan Amount</button>
+        
+        <div class="row mt-3">
+            <div class="col">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Calculate</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary btn-lg btn-block" type="reset">Clear</button>
+            </div>
+          </div>
+        
     </form>
 @endsection
 
